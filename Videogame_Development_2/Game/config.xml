@@ -1,5 +1,11 @@
 <!-- Config file for the game -->
 
 <config>
+  
+	<window>
+		<resolution width="640" height="480"/>	
+	</window>
+  
 	<name>My super awesome game with XML</name>
+
 </config>
