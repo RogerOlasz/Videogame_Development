@@ -49,6 +49,8 @@ public:
 	// that can be called anytime, even if they 
 	// will one execute by the very end of the frame
 	// Load / Save
+	void SaveGame(const char* file_name) const;
+	void LoadGame(const char* file_name);
 
 private:
 
@@ -71,8 +73,8 @@ private:
 	bool PostUpdate();
 
 	// Load / Save
+	bool SaveGameNow() const;
 	bool LoadGameNow();
-	bool SavegameNow() const;
 
 public:
 
@@ -93,6 +95,7 @@ private:
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
+	pugi::xml_node		savegame;
 	int					argc;
 	char**				args;
 

@@ -158,6 +158,57 @@ void j1App::PrepareUpdate()
 void j1App::FinishUpdate()
 {
 	// TODO 1: This is a good place to call load / Save functions
+	if (want_to_save == true)
+	{
+		SaveGameNow();
+	}
+
+	if (want_to_load == true)
+	{
+		LoadGameNow();
+	}
+
+}
+
+void j1App::SaveGame(const char* file_name) const
+{
+	want_to_save = true;
+	save_game.create(file_name);
+}
+
+void j1App::LoadGame(const char* file_name)
+{
+	want_to_load = true;
+	load_game.create(file_name);
+}
+
+bool j1App::SaveGameNow() const
+{
+
+	return true;
+}
+
+
+bool j1App::LoadGameNow()
+{
+	bool ret = true;
+
+	char* buf;
+	int size = App->fs->Load("savegame.xml", &buf);
+	pugi::xml_parse_result result = config_file.load_buffer(buf, size);
+	RELEASE(buf);
+
+	if (result == NULL)
+	{
+		LOG("Could not load map xml file savegame.xml. pugi error: %s", result.description());
+		ret = false;
+	}
+	else
+	{
+		savegame = config_file.child("renderer");
+	}
+
+	return ret;
 }
 
 // Call modules before each loop iteration
@@ -267,7 +318,6 @@ const char* j1App::GetOrganization() const
 {
 	return organization.GetString();
 }
-
 
 // TODO 3: Create a simulation of the xml file to read 
 
