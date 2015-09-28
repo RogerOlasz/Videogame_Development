@@ -8,9 +8,42 @@
 
 // TODO 2: Create a struct to hold information for a TileSet
 // Ignore Terrain Types and Tile Types for now, but we want the image!
-
+struct MapPropieties
+{
+	unsigned int firstgid;
+	p2SString map_name;
+	unsigned int tilewidth;
+	unsigned int tileheight;
+	unsigned int spacing;
+	unsigned int margin;
+};
 
 // TODO 1: Create a struct needed to hold the information to Map node
+enum ORIENTATION
+{
+	ORTHOGONAL,
+	ISOMETRIC
+};
+
+enum RENDERORDER
+{
+	RIGHT_DOWN,
+	RIGHT_UP,
+	LEFT_DOWN,
+	LEFT_UP
+};
+
+struct MapInfo
+{
+	float version;
+	ORIENTATION orientation;
+	RENDERORDER renderorder;
+	unsigned int width;
+	unsigned int height;
+	unsigned int tilewidth;
+	unsigned int tileheight;
+	unsigned int nextobject;
+};
 
 // ----------------------------------------------------
 class j1Map : public j1Module
@@ -34,11 +67,16 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
+	
+
 private:
+
+	bool LoadMapStruct();
 
 public:
 
 	// TODO 1: Add your struct for map info as public for now
+	MapInfo map_info;
 
 private:
 
